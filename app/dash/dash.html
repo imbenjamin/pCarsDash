@@ -1,4 +1,16 @@
-<div class="row">
+<!-- API Error -->
+<div ng-if="apiSuccess == false" class="row">
+	<div class="large-12 columns">
+		<h1>Oops.</h1>
+		<h2>There's been a slight hiccup...</h2>
+		<br />
+		<h3 class="subheader">Error Code {{apiStatus}}</h3>
+		<h3>{{apiMessage}}</h3>
+	</div>
+</div>
+
+<!-- API Success -->
+<div ng-if="apiSuccess == true" class="row">
 	<div class="large-11 columns">
 		<div class="panel">
 			<!-- Session Info -->
@@ -36,7 +48,7 @@
 
 <br />
 
-<div ng-if="gameStates.mSessionState != 0" class="row">
+<div ng-if="apiSuccess == true && gameStates.mSessionState != 0" class="row">
 	<div class="large-9 columns">
 
 		<!-- Lap Info -->
