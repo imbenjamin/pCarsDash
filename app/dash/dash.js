@@ -46,6 +46,7 @@ angular.module('myApp.dash', ['ngRoute', 'ngResource'])
 				$scope.buildinfo = data.buildinfo;
 				$scope.gameStates = data.gameStates;
 				$scope.participants = data.participants;
+				$scope.participants.mPlayerName = data.participants.mParticipantInfo[0].mName;
 				$scope.unfilteredInput = data.unfilteredInput;
 				$scope.vehicleInformation = data.vehicleInformation;
 				$scope.eventInformation = data.eventInformation;

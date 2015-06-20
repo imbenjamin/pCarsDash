@@ -206,9 +206,9 @@
 			<!-- Standings table -->
 			<table style="width: 100%;">
 				<tbody>
-					<tr ng-repeat="driver in participants.mParticipantInfo | orderBy:'driver.mRacePosition'">
+					<tr ng-repeat="driver in participants.mParticipantInfo | orderBy:'mRacePosition'">
 						<td style="font-weight: 700;">{{driver.mRacePosition}}</td>
-						<td ng-class="{'text-bold': participants.mViewedParticipantIndex == $index}">{{driver.mName}}</td>
+						<td ng-class="{'text-bold': driver.mName == participants.mPlayerName}">{{driver.mName}}</td>
 					</tr>
 				</tbody>
 			</table>
