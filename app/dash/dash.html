@@ -107,7 +107,7 @@
 			</tfoot>
 		</table>
 
-		<table ng-class="{'bg-red': carState.mRpm > (carState.mMaxRPM/100)*90}">
+		<table>
 			<tr>
 				<td width="200" class="text-right">
 					<!-- Front Left -->
@@ -178,7 +178,7 @@
 			<span class="meter" style="width: {{carState.mRpm / carState.mMaxRPM | percentage:1}};"></span>
 		</div>
 
-		<div class="row panel">
+		<div ng-class="{'bg-red': carState.mRpm > (carState.mMaxRPM/100)*90}" class="row panel">
 		<div class="large-4 columns">
 			<h3>{{carState.mGear}}<small>/{{carState.mNumGears}} gear</small></h3>
 		</div>
@@ -186,7 +186,7 @@
 			<h2>{{carState.mSpeed | msToMph | number:1}}<small> MPH</small></h2>
 		</div>
 		<div class="large-4 columns text-right">
-			<h3 ng-class="{'text-red': carState.mRpm > (carState.mMaxRPM/100)*90}">{{carState.mRpm | number:0}}<small>/{{carState.mMaxRPM | number:0}} RPM</small></h3>
+			<h3>{{carState.mRpm | number:0}}<small>/{{carState.mMaxRPM | number:0}} RPM</small></h3>
 		</div>
 		</div>
 	</div>
