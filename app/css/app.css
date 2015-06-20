@@ -1,0 +1,107 @@
+/* app css stylesheet */
+
+@import url(http://fonts.googleapis.com/css?family=Monda:400,700);
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+
+.menu > li:nth-child(1):before {
+  content: "";
+  padding: 0;
+}
+
+.invisible-interactions {
+  cursor: pointer;
+  pointer-events: none;
+}
+
+.text-bold {
+  font-weight: 700;
+}
+
+.text-red {
+  color: rgb(255, 0, 0) !important;
+}
+
+.text-amber {
+  color: rgb(255, 191, 0) !important;
+}
+
+.text-green {
+  color: rgb(0, 255, 0) !important;
+}
+
+.bg-red {
+  background-color: rgb(255, 0, 0) !important;
+}
+
+.panel h1 {
+  line-height: 0.5 !important;
+}
+
+.rotate90 {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.rotate180 {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.rotate270 {
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    transform: rotate(270deg);
+}
+
+/***************************************************/
+
+body {
+  font-family: 'Monda', sans-serif !important;
+  background: #DDD;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Monda', sans-serif !important;
+  font-weight: 400;
+}
+
+h1 {
+  line-height: 1;
+  font-size: 4rem;
+}
+
+h4 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}

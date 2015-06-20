@@ -1,0 +1,197 @@
+<div class="row">
+	<div class="large-11 columns">
+		<div class="panel">
+			<!-- Session Info -->
+			<h4>Project CARS v{{buildinfo.mVersion}}.{{buildinfo.mBuildVersionNumber}}</h4>
+			<h1>{{eventInformation.mTrackLocation}}</h1>
+			<h2 class="subheader">{{eventInformation.mTrackVariation}}</h2>
+		</div>
+
+		<div class="panel">
+			<!-- Vehicle -->
+			<h3>{{vehicleInformation.mCarName}} <small>{{vehicleInformation.mCarClassName}}</small></h3>
+			<h3 ng-if="gameStates.mSessionState == 0">Waiting for a session to start...</h3>
+		</div>
+	</div>
+
+	<div class="large-1 columns">
+		<!-- Game status -->
+		<div class="icon-bar large-vertical three-up">
+			<a class="item invisible-interactions">
+			<i ng-class="{'text-green': gameStates.mGameState != 0}" class="fa fa-circle text-red"></i>
+			<label>Game</label>
+			</a>
+			<a class="item invisible-interactions">
+			<i ng-class="{'text-green': gameStates.mSessionState != 0}" class="fa fa-circle text-red"></i>
+			<label>Session</label>
+			</a>
+			<a class="item invisible-interactions">
+			<i ng-class="{'text-green': gameStates.mRaceState != 0}" class="fa fa-circle text-red"></i>
+			<label>Race</label>
+			</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<br />
+
+<div ng-if="gameStates.mSessionState != 0" class="row">
+	<div class="large-9 columns">
+
+		<!-- Lap Info -->
+		<div class="small-4 columns">
+			<h1>{{participants.mParticipantInfo[participants.mViewedParticipantIndex].mCurrentLap}}<small>/{{eventInformation.mLapsInEvent}}</small></h1>
+		</div>
+
+		<div class="small-8 columns">
+			<h1 ng-if="!timings.mLapInvalidated">{{timings.mCurrentTime | racetime | date:'mm:ss:sss'}}</h1>
+			<h1 ng-if="timings.mLapInvalidated" class="text-red">Lap Invalid</h1>
+			<h3 class="subheader">{{timings.mSplitTime}}</h3>
+		</div>
+
+		<!-- Timings Table -->
+		<table>
+			<thead>
+				<tr>
+					<th>&nbsp;</th>
+					<th width="150">Current</th>
+					<th width="150">Race Best</th>
+					<th width="150">Personal Best</th>
+					<th width="150">World Record</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th>Sector 1</th>
+					<td>{{timings.mCurrentSector1Time | racetime | date:'mm:ss:sss'}}</td>
+					<td>{{timings.mFastestSector1Time | racetime | date:'mm:ss:sss'}}</td>
+					<td>{{timings.mPersonalFastestSector1Time | racetime | date:'mm:ss:sss'}}</td>
+					<td>{{timings.mWorldFastestSector1Time | racetime | date:'mm:ss:sss'}}</td>
+				</tr>
+				<tr>
+					<th>Sector 2</th>
+					<td>{{timings.mCurrentSector2Time | racetime | date:'mm:ss:sss'}}</td>
+					<td>{{timings.mFastestSector2Time | racetime | date:'mm:ss:sss'}}</td>
+					<td>{{timings.mPersonalFastestSector2Time | racetime | date:'mm:ss:sss'}}</td>
+					<td>{{timings.mWorldFastestSector2Time | racetime | date:'mm:ss:sss'}}</td>
+				</tr>
+				<tr>
+					<th>Sector 3</th>
+					<td>{{timings.mCurrentSector3Time | racetime | date:'mm:ss:sss'}}</td>
+					<td>{{timings.mFastestSector3Time | racetime | date:'mm:ss:sss'}}</td>
+					<td>{{timings.mPersonalFastestSector3Time | racetime | date:'mm:ss:sss'}}</td>
+					<td>{{timings.mWorldFastestSector3Time | racetime | date:'mm:ss:sss'}}</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th>Lap</th>
+					<th>{{timings.mCurrentTime | racetime | date:'mm:ss:sss'}}</th>
+					<th>{{timings.mBestLapTime | racetime | date:'mm:ss:sss'}}</th>
+					<th>{{timings.mPersonalFastestLapTime | racetime | date:'mm:ss:sss'}}</th>
+					<th>{{timings.mWorldFastestLapTime | racetime | date:'mm:ss:sss'}}</th>
+				</tr>
+			</tfoot>
+		</table>
+
+		<table ng-class="{'bg-red': carState.mRpm > (carState.mMaxRPM/100)*90}">
+			<tr>
+				<td width="200" class="text-right">
+					<!-- Front Left -->
+					{{wheelsAndTyres.mTyreTemp[0] | number: 1}}&deg;C<br />
+					{{wheelsAndTyres.mTyreWear[0] | percentage: 1}}
+				</td>
+				<td width="200" height="500" rowspan="3"><img src="img/f1-top-down.png" /></td>
+				<td width="200">
+					<!-- Front Right -->
+					{{wheelsAndTyres.mTyreTemp[1] | number: 1}}&deg;C<br />
+					{{wheelsAndTyres.mTyreWear[1] | percentage: 1}}
+				</td>
+			</tr>
+			<tr>
+				<td class="text-center">
+					<!-- Flags -->
+					<div ng-switch on="flags.mHighestFlagColour">
+						<img ng-switch-when="1" src="img/flags/green.svg" width="100" />
+						<img ng-switch-when="2" src="img/flags/blue.svg" width="100" />
+						<img ng-switch-when="3" src="img/flags/white.svg" width="100" />
+						<img ng-switch-when="4" src="img/flags/yellow.svg" width="100" />
+						<img ng-switch-when="5" src="img/flags/double_yellow.svg" width="100" />
+						<img ng-switch-when="6" src="img/flags/black.svg" width="100" />
+						<img ng-switch-when="7" src="img/flags/chequered.svg" width="100" />
+					</div>
+					<div ng-switch on="flags.mHighestFlagReason">
+						<span ng-switch-when="1">Solo Crash</span>
+						<span ng-switch-when="2">Vehicle Crash</span>
+						<span ng-switch-when="3">Vehicle Obstruction</span>
+					</div>
+				</td>
+				<td class="text-center">
+					<!-- Weather Info -->
+					<table>
+						<tr>
+							<th>Air Temp</th>
+							<td>{{weather.mAmbientTemperature | number: 1}}&deg;C</td>
+						</tr>
+						<tr>
+							<th>Track Temp</th>
+							<td>{{weather.mTrackTemperature | number: 1}}&deg;C</td>
+						</tr>
+						<tr>
+							<th>Precipitation</th>
+							<td>{{weather.mRainDensity | percentage: 0}}</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td class="text-right">
+					<!-- Rear Left -->
+					{{wheelsAndTyres.mTyreTemp[2] | number: 1}}&deg;C<br />
+					{{wheelsAndTyres.mTyreWear[2] | percentage: 1}}
+				</td>
+				<td>
+					<!-- Rear Right -->
+					{{wheelsAndTyres.mTyreTemp[3] | number: 1}}&deg;C<br />
+					{{wheelsAndTyres.mTyreWear[3] | percentage: 1}}
+				</td>
+			</tr>
+		</table>
+
+		<br />
+
+		<div class="large-6 columns">
+			<h2>{{carState.mSpeed | msToMph | number:1}}<small> MPH</small></h2>
+			<h2>{{carState.mGear}}<small>/{{carState.mNumGears}} gear</small></h2>
+		</div>
+		<div class="large-6 columns">
+			<h2 ng-class="{'text-red': carState.mRpm > (carState.mMaxRPM/100)*90}">{{carState.mRpm | number:0}}<small>/{{carState.mMaxRPM | number:0}} RPM</small></h2>
+		</div>
+	</div>
+
+
+	<div class="large-3 columns">
+		<div class="panel">
+			<!-- Race Status -->
+			<div ng-switch on="gameStates.mSessionState" class="text-center">
+				<h3 ng-switch-when="1">Practice</h3>
+				<h3 ng-switch-when="2">Testing</h3>
+				<h3 ng-switch-when="3">Qualifying</h3>
+				<h3 ng-switch-when="4">Formation</h3>
+				<h3 ng-switch-when="5">Race</h3>
+				<h3 ng-switch-when="6">Time Attack</h3>
+				<h3 ng-switch-default>&nbsp;</h3>
+			</div>
+			<!-- Standings table -->
+			<table style="width: 100%;">
+				<tbody>
+					<tr ng-repeat="driver in participants.mParticipantInfo | orderBy:'driver.mRacePosition'">
+						<td style="font-weight: 700;">{{driver.mRacePosition}}</td>
+						<td ng-class="{'text-bold': participants.mViewedParticipantIndex == $index}">{{driver.mName}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
