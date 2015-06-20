@@ -41,22 +41,8 @@ angular.module('myApp.dash', ['ngRoute', 'ngResource'])
 				$scope.apiSuccess = true;
 				$scope.apiStatus = status;
 				$scope.apiMessage = [];
-				getData();
-			}).
-			error(function(data, status, headers, config) {
-				$scope.apiSuccess = false;
-				$scope.apiStatus = status;
-
-				if (data != null) { $scope.apiMessage = data.status; }
-				else { $scope.apiMessage = "Cannot connect to the CREST service, please ensure CREST is running."}
 				
-				$timeout(pokeApi, 1000);
-			});
-		};
-
-		function getData() {
-			Crest.query(function(data, status) {
-				//console.log("Game state: "+data.gameStates.mGameState)
+				// Data
 				$scope.buildinfo = data.buildinfo;
 				$scope.gameStates = data.gameStates;
 				$scope.participants = data.participants;
@@ -72,9 +58,16 @@ angular.module('myApp.dash', ['ngRoute', 'ngResource'])
 				$scope.carDamage = data.carDamage;
 				$scope.weather = data.weather;
 
-				console.log(data);
+				$timeout(pokeApi, 50);
+			}).
+			error(function(data, status, headers, config) {
+				$scope.apiSuccess = false;
+				$scope.apiStatus = status;
 
-				$timeout(getData, 50);
+				if (data != null) { $scope.apiMessage = data.status; }
+				else { $scope.apiMessage = "Cannot connect to the CREST service, please ensure CREST is running."}
+				
+				$timeout(pokeApi, 1000);
 			});
 		};
 
