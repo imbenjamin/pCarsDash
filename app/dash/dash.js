@@ -1,15 +1,15 @@
 'use strict';
 
-angular.module('myApp.view1', ['ngRoute', 'ngResource'])
+angular.module('myApp.dash', ['ngRoute', 'ngResource'])
 
 .config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/view1', {
-    templateUrl: 'view1/view1.html',
-    controller: 'View1Ctrl'
+  $routeProvider.when('/dash', {
+    templateUrl: 'dash/dash.html',
+    controller: 'DashCtrl'
   });
 }])
 
-.controller('View1Ctrl', [ '$scope', '$resource', '$timeout', 
+.controller('DashCtrl', [ '$scope', '$resource', '$timeout', 
 	function($scope, $resource, $timeout) {
 
 		var Crest = $resource('http://localhost:8080/crest/v1/api', {}, {
