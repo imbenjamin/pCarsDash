@@ -10,7 +10,136 @@
 </div>
 
 <!-- API Success -->
-<div ng-if="apiSuccess == true" class="row">
+
+<!-- Small (phone) Screens -->
+<!-- Not in a session -->
+<div ng-if="apiSuccess == true && gameStates.mSessionState == 0" class="row show-for-small-only">
+	<div class="large-12 columns">
+		<h1>Waiting for a session to start...</h1>
+	</div>
+</div>
+
+<!-- In a session -->
+<div ng-if="apiSuccess == true && gameStates.mSessionState != 0" class="row show-for-small-only">
+	<div ng-class="{'bg-red': carState.mRpm > (carState.mMaxRPM/100)*90}" class="panel large-12 columns mobile-top-panel">
+		<div class="large-12 columns">
+			<!-- RPM Meter -->
+			<div ng-class="{'alert': carState.mRpm > (carState.mMaxRPM/100)*90}" class="progress">
+				<span class="meter" style="width: {{carState.mRpm / carState.mMaxRPM | percentage:1}};"></span>
+			</div>
+		</div>
+		<div class="large-12 columns">
+			<!-- Gear -->
+			<div class="small-3 columns text-center">
+				<h3>{{carState.mGear}}<small>/{{carState.mNumGears}} gear</small></h3>
+			</div>
+			<!-- Speed -->
+			<div class="small-6 columns text-center">
+				<h2>{{carState.mSpeed | msToMph | number:1}}<small> MPH</small></h2>
+			</div>
+			<!-- RPM -->
+			<div class="small-3 columns text-center">
+				<h3>{{carState.mRpm | number:0}}<small> RPM</small></h3>
+			</div>
+		</div>
+	</div>
+	<div class="large-12 columns">
+		<div class="small-3 columns text-center">
+			<!-- Lap -->
+			<h2>{{participants.mParticipantInfo[participants.mViewedParticipantIndex].mCurrentLap}}<small> /{{eventInformation.mLapsInEvent}} lap</small></h2>
+		</div>
+		<div class="small-6 columns text-center">
+			<!-- Time -->
+			<h1 ng-if="!timings.mLapInvalidated">{{timings.mCurrentTime | racetime | date:'mm:ss:sss'}}</h1>
+			<h1 ng-if="timings.mLapInvalidated" class="text-red">Lap Invalid</h1>
+		</div>
+		<div class="small-3 columns text-center">
+			<!-- Split -->
+			<h3 class="subheader">{{timings.mSplitTime}}</h3>
+		</div>
+	</div>
+	<div class="large-12 columns">
+		<div class="small-4 columns">
+			<!-- Driver Lap Timings -->
+			<table>
+				<tr>
+					<th>Best</th>
+					<td>{{timings.mBestLapTime | racetime | date:'mm:ss:sss'}}</td>
+				</tr>
+				<tr>
+					<th>PB</th>
+					<td>{{timings.mPersonalFastestLapTime | racetime | date:'mm:ss:sss'}}</td>
+				</tr>
+				<tr>
+					<th>WR</th>
+					<td>{{timings.mWorldFastestLapTime | racetime | date:'mm:ss:sss'}}</td>
+				</tr>
+			</table>
+		</div>
+		<div class="small-4 columns text-center">
+			<!-- Position -->
+			<h1>{{participants.mParticipantInfo[participants.mViewedParticipantIndex].mRacePosition}}<small> /{{participants.mNumParticipants}} pos</small></h1>
+			<br />
+			<div class="small-3 columns">
+				Fuel
+			</div>
+			<div class="small-9 columns">
+				<div ng-class="{'alert': carState.mFuelLevel < 0.1}" class="progress">
+					<span class="meter" style="width: {{carState.mFuelLevel | percentage:1}};"><small class="text-white">{{carState.mFuelLevel | percentage:0}}</small></span>
+				</div>
+			</div>
+			<small>Ambient <strong>{{weather.mAmbientTemperature | number: 1}}&deg;C</strong> &nbsp; Track <strong>{{weather.mTrackTemperature | number: 1}}&deg;C</strong></small><br />
+			<small></small>
+		</div>
+		<div class="small-4 columns">
+			<!-- Tyres -->
+			<table class="mobile-tyre-table">
+			<tr>
+				<td>
+					<!-- Front Left -->
+					{{wheelsAndTyres.mTyreTemp[0] | number: 1}}&deg;C<br />
+					{{wheelsAndTyres.mTyreWear[0] | percentage: 1}}
+				</td>
+				<td rowspan="3"></td>
+				<td class="text-right">
+					<!-- Front Right -->
+					{{wheelsAndTyres.mTyreTemp[1] | number: 1}}&deg;C<br />
+					{{wheelsAndTyres.mTyreWear[1] | percentage: 1}}
+				</td>
+			</tr>
+			<tr>
+				<td class="text-center">
+					&nbsp;
+				</td>
+				<td class="text-center">
+					&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<!-- Rear Left -->
+					{{wheelsAndTyres.mTyreTemp[2] | number: 1}}&deg;C<br />
+					{{wheelsAndTyres.mTyreWear[2] | percentage: 1}}
+				</td>
+				<td class="text-right">
+					<!-- Rear Right -->
+					{{wheelsAndTyres.mTyreTemp[3] | number: 1}}&deg;C<br />
+					{{wheelsAndTyres.mTyreWear[3] | percentage: 1}}
+				</td>
+			</tr>
+		</table>
+		</div>
+	</div>
+</div>
+
+<!-- Medium (tablet) Screens -->
+<!-- TODO: implement medium (tablet) screen view -->
+<div ng-if="apiSuccess == true" class="row show-for-medium-only">
+Medium screen
+</div>
+
+<!-- L/XL/XXL Screens -->
+<div ng-if="apiSuccess == true" class="row show-for-large-up">
 	<div class="large-11 columns">
 		<div class="panel">
 			<!-- Session Info -->
@@ -48,7 +177,7 @@
 
 <br />
 
-<div ng-if="apiSuccess == true && gameStates.mSessionState != 0" class="row">
+<div ng-if="apiSuccess == true && gameStates.mSessionState != 0" class="row show-for-large-up">
 	<div class="large-9 columns">
 
 		<!-- Lap Info -->

@@ -12,7 +12,7 @@ angular.module('myApp.dash', ['ngRoute', 'ngResource'])
 .controller('DashCtrl', [ '$scope', '$resource', '$timeout', '$http', 
 	function($scope, $resource, $timeout, $http) {
 
-		var Crest = $resource('http://localhost:8080/crest/v1/api', {}, {
+		var Crest = $resource('http://192.168.0.20:8080/crest/v1/api', {}, {
 			query: { method: "GET", isArray: false }
 		});
 
@@ -36,7 +36,7 @@ angular.module('myApp.dash', ['ngRoute', 'ngResource'])
 		$scope.weather = [];
 
 		function pokeApi() {
-			$http.get('http://localhost:8080/crest/v1/api').
+			$http.get('http://192.168.0.20:8080/crest/v1/api').
 			success(function(data, status, headers, config) {
 				$scope.apiSuccess = true;
 				$scope.apiStatus = status;

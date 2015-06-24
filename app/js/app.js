@@ -26,6 +26,20 @@ filter('msToMph', [function() {
 		return ms * 2.23693629;
 	};
 }]).
+filter('ordinal', [function() {
+  return function(input) {
+    var s=["th","st","nd","rd"],
+    v=input%100;
+    return input+(s[(v-20)%10]||s[v]||s[0]);
+  }
+}]).
+filter('ordinalOnly', [function() {
+  return function(input) {
+    var s=["th","st","nd","rd"],
+    v=input%100;
+    return (s[(v-20)%10]||s[v]||s[0]);
+  }
+}]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/dash'});
 }]);
